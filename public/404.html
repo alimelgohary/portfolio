@@ -1,23 +1,41 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <title>Redirecting...</title>
-    <script type="text/javascript">
-      // Single Page Apps for GitHub Pages
-      // https://github.com/rafgraph/spa-github-pages
-      var pathSegmentsToKeep = 1;
-
-      var l = window.location;
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?p=/' +
-        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ali | Full Stack Developer &amp; DevOps Engineer</title>
+    <meta name="description" content="Portfolio of Ali — Full Stack .NET Developer with extensive DevOps experience. Building scalable solutions with modern technologies.">
+    <meta name="author" content="Ali" />
+    
+    
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <meta property="og:title" content="Ali | Full Stack Developer &amp; DevOps Engineer">
+  <meta name="twitter:title" content="Ali | Full Stack Developer &amp; DevOps Engineer">
+  <meta property="og:description" content="Portfolio of Ali — Full Stack .NET Developer with extensive DevOps experience. Building scalable solutions with modern technologies.">
+  <meta name="twitter:description" content="Portfolio of Ali — Full Stack .NET Developer with extensive DevOps experience. Building scalable solutions with modern technologies.">
+  <meta property="og:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/4aae7f6f-bf84-40af-aab3-878c948ab1b4/id-preview-461b2b29--5388a07f-a9f6-4987-b77a-0a950714f385.lovable.app-1772444091540.png">
+  <meta name="twitter:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/4aae7f6f-bf84-40af-aab3-878c948ab1b4/id-preview-461b2b29--5388a07f-a9f6-4987-b77a-0a950714f385.lovable.app-1772444091540.png">
+  <script type="text/javascript">
+  // Start Single Page Apps for GitHub Pages Redirect Retention Support
+  (function(l) {
+    if (l.search[1] === '/' ) {
+      var decoded = l.search.slice(1).split('&').map(function(s) { 
+        return s.replace(/~and~/g, '&') 
+      }).join('?');
+      window.history.replaceState(null, null,
+          l.pathname.slice(0, -1) + decoded + l.hash
       );
-    </script>
-  </head>
+    }
+  }(window.location))
+  // End Single Page Apps for GitHub Pages Redirect Retention Support
+</script>
+</head>
   <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
