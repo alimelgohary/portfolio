@@ -1,13 +1,26 @@
 import { usePortfolio } from '@/contexts/PortfolioContext';
 import { SectionType, SECTION_LABELS } from '@/types/portfolio';
 import { Badge } from '@/components/ui/badge';
+import { sanitizeHtml } from '@/lib/sanitize';
 import { ExternalLink, MapPin, Calendar, Award, BookOpen, Heart, Terminal } from 'lucide-react';
 
 const NAV_SECTIONS: SectionType[] = ['experience', 'skills', 'projects', 'education', 'certificates', 'trainings', 'volunteering'];
 
+const SafeHtml = ({ html, className }: { html: string; className?: string }) => (
+  <div className={className} dangerouslySetInnerHTML={{ __html: sanitizeHtml(html) }} />
+);
+
 const Index = () => {
-  const { getBySection } = usePortfolio();
+  const { getBySection, loading } = usePortfolio();
   const summary = getBySection('summary')[0];
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <p className="text-muted-foreground font-mono text-sm">Loading portfolio...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -33,7 +46,7 @@ const Index = () => {
           <p className="text-xl text-muted-foreground mb-6">Full Stack Developer & DevOps Engineer</p>
           <div className="gradient-line mb-8" />
           {summary?.description && (
-            <div className="text-muted-foreground leading-relaxed max-w-2xl rich-content" dangerouslySetInnerHTML={{ __html: summary.description }} />
+            <SafeHtml html={summary.description} className="text-muted-foreground leading-relaxed max-w-2xl rich-content" />
           )}
         </section>
 
@@ -51,7 +64,7 @@ const Index = () => {
                   {e.location && <span className="flex items-center gap-1"><MapPin className="h-3 w-3" />{e.location}</span>}
                   <span className="flex items-center gap-1"><Calendar className="h-3 w-3" />{e.startDate}{e.current ? ' — Present' : e.endDate ? ` — ${e.endDate}` : ''}</span>
                 </div>
-                {e.description && <div className="text-sm text-muted-foreground rich-content" dangerouslySetInnerHTML={{ __html: e.description }} />}
+                {e.description && <SafeHtml html={e.description} className="text-sm text-muted-foreground rich-content" />}
               </div>
             ))}
           </div>
@@ -91,7 +104,7 @@ const Index = () => {
                   <h3 className="font-semibold">{p.title}</h3>
                   {p.url && <a href={p.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:opacity-80"><ExternalLink className="h-4 w-4" /></a>}
                 </div>
-                {p.description && <div className="text-sm text-muted-foreground mb-3 rich-content" dangerouslySetInnerHTML={{ __html: p.description }} />}
+                {p.description && <SafeHtml html={p.description} className="text-sm text-muted-foreground mb-3 rich-content" />}
                 {p.technologies && (
                   <div className="flex flex-wrap gap-1.5">
                     {p.technologies.map((t) => (
@@ -116,7 +129,7 @@ const Index = () => {
                   {e.location && <span className="flex items-center gap-1"><MapPin className="h-3 w-3" />{e.location}</span>}
                   {e.startDate && <span className="flex items-center gap-1"><Calendar className="h-3 w-3" />{e.startDate}{e.endDate ? ` — ${e.endDate}` : ''}</span>}
                 </div>
-                {e.description && <div className="text-sm text-muted-foreground rich-content" dangerouslySetInnerHTML={{ __html: e.description }} />}
+                {e.description && <SafeHtml html={e.description} className="text-sm text-muted-foreground rich-content" />}
               </div>
             ))}
           </div>
@@ -135,7 +148,7 @@ const Index = () => {
                   </div>
                   {c.credentialUrl && <a href={c.credentialUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:opacity-80"><ExternalLink className="h-4 w-4" /></a>}
                 </div>
-                {c.description && <div className="text-sm text-muted-foreground mt-2 rich-content" dangerouslySetInnerHTML={{ __html: c.description }} />}
+                {c.description && <SafeHtml html={c.description} className="text-sm text-muted-foreground mt-2 rich-content" />}
               </div>
             ))}
           </div>
@@ -149,7 +162,7 @@ const Index = () => {
                 <h3 className="font-semibold">{t.title}</h3>
                 {t.organization && <p className="text-sm text-primary">{t.organization}</p>}
                 {t.startDate && <p className="text-xs text-muted-foreground mt-1">{t.startDate}</p>}
-                {t.description && <div className="text-sm text-muted-foreground mt-2 rich-content" dangerouslySetInnerHTML={{ __html: t.description }} />}
+                {t.description && <SafeHtml html={t.description} className="text-sm text-muted-foreground mt-2 rich-content" />}
               </div>
             ))}
           </div>
@@ -166,7 +179,7 @@ const Index = () => {
                 <div className="flex gap-3 text-xs text-muted-foreground mt-1 mb-2">
                   {v.startDate && <span><Calendar className="h-3 w-3 inline mr-1" />{v.startDate}{v.current ? ' — Present' : v.endDate ? ` — ${v.endDate}` : ''}</span>}
                 </div>
-                {v.description && <div className="text-sm text-muted-foreground rich-content" dangerouslySetInnerHTML={{ __html: v.description }} />}
+                {v.description && <SafeHtml html={v.description} className="text-sm text-muted-foreground rich-content" />}
               </div>
             ))}
           </div>
