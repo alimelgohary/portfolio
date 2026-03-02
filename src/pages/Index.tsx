@@ -27,7 +27,7 @@ const Index = () => {
       {/* Nav */}
       <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
         <div className="max-w-4xl mx-auto px-6 flex items-center h-14 gap-6 overflow-x-auto">
-          <a href="#top" className="text-primary font-mono font-medium text-sm shrink-0">~/ali</a>
+          <a href="#top" className="text-primary font-mono font-medium text-sm shrink-0">~/ali-algohary</a>
           <div className="flex gap-4 ml-auto">
             {NAV_SECTIONS.map((s) => (
               <a key={s} href={`#${s}`} className="text-xs text-muted-foreground hover:text-foreground transition-colors shrink-0">
@@ -42,7 +42,7 @@ const Index = () => {
         {/* Hero */}
         <section id="top" className="pt-24 pb-16">
           <p className="text-primary font-mono text-sm mb-3">Hello, I'm</p>
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-4">Ali</h1>
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-4">Ali Algohary</h1>
           <p className="text-xl text-muted-foreground mb-6">Full Stack Developer & DevOps Engineer</p>
           <div className="gradient-line mb-8" />
           {summary?.description && (
@@ -189,7 +189,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="border-t border-border py-8">
         <div className="max-w-4xl mx-auto px-6 text-center text-xs text-muted-foreground">
-          <p className="font-mono">© {new Date().getFullYear()} Ali. Built with passion.</p>
+          <p className="font-mono">© {new Date().getFullYear()} Ali Algohary. Built with passion.</p>
         </div>
       </footer>
     </div>
