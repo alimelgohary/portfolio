@@ -9,6 +9,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import RichTextEditor from '@/components/RichTextEditor';
+import VisitorStats from '@/components/admin/VisitorStats';
 import { sanitizeHtml } from '@/lib/sanitize';
 import { Plus, Pencil, Trash2, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -92,6 +93,7 @@ const AdminDashboard = () => {
       </header>
 
       <div className="max-w-5xl mx-auto px-6 py-8">
+        <VisitorStats />
         <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as SectionType)}>
           <TabsList className="flex flex-wrap h-auto gap-1 bg-muted p-1 mb-6">
             {ALL_SECTIONS.map((s) => (
