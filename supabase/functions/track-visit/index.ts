@@ -14,6 +14,13 @@ async function hashFingerprint(raw: string): Promise<string> {
     .join("");
 }
 
+function detectDeviceType(ua: string): string {
+  const lower = ua.toLowerCase();
+  if (/tablet|ipad|playbook|silk/.test(lower)) return "tablet";
+  if (/mobile|iphone|ipod|android.*mobile|windows phone|blackberry/.test(lower)) return "mobile";
+  return "desktop";
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -22,16 +29,14 @@ Deno.serve(async (req) => {
   try {
     const { page_path, referrer } = await req.json();
 
-    // Generate anonymous visitor ID from IP + User-Agent
     const ip =
       req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
       req.headers.get("cf-connecting-ip") ||
       "unknown";
     const ua = req.headers.get("user-agent") || "unknown";
     const visitor_id = await hashFingerprint(`${ip}::${ua}`);
-
-    // Optional country from Cloudflare header
     const country = req.headers.get("cf-ipcountry") || null;
+    const device_type = detectDeviceType(ua);
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
@@ -43,6 +48,7 @@ Deno.serve(async (req) => {
       referrer: referrer || null,
       visitor_id,
       country,
+      device_type,
     });
 
     return new Response(JSON.stringify({ ok: true }), {
