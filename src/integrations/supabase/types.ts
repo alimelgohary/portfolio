@@ -18,6 +18,7 @@ export type Database = {
         Row: {
           country: string | null
           created_at: string
+          device_type: string | null
           id: string
           page_path: string
           referrer: string | null
@@ -26,6 +27,7 @@ export type Database = {
         Insert: {
           country?: string | null
           created_at?: string
+          device_type?: string | null
           id?: string
           page_path?: string
           referrer?: string | null
@@ -34,6 +36,7 @@ export type Database = {
         Update: {
           country?: string | null
           created_at?: string
+          device_type?: string | null
           id?: string
           page_path?: string
           referrer?: string | null
