@@ -85,7 +85,7 @@ export function trackPageView() {
   const referrer = categorizeReferrer(document.referrer);
 
   // Non-blocking async track
-  sendBeacon({
+  sendAnalytics({
     page_path: window.location.pathname,
     referrer,
     session_id: sessionId,
