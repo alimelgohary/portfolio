@@ -42,14 +42,26 @@ function categorizeReferrer(referrer: string): string | null {
   }
 }
 
-function sendBeacon(payload: Record<string, unknown>) {
+function sendAnalytics(payload: Record<string, unknown>) {
   const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
   const url = `https://${projectId}.supabase.co/functions/v1/track-visit`;
   const body = JSON.stringify(payload);
 
+  // Use Blob to ensure correct Content-Type with sendBeacon
+  const blob = new Blob([body], { type: 'application/json' });
+
   // Prefer sendBeacon for reliability on page unload, fallback to fetch
   if (navigator.sendBeacon) {
-    navigator.sendBeacon(url, body);
+    const sent = navigator.sendBeacon(url, blob);
+    if (!sent) {
+      // Fallback if sendBeacon fails (e.g. payload too large)
+      fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body,
+        keepalive: true,
+      }).catch(() => {});
+    }
   } else {
     fetch(url, {
       method: 'POST',
@@ -73,7 +85,7 @@ export function trackPageView() {
   const referrer = categorizeReferrer(document.referrer);
 
   // Non-blocking async track
-  sendBeacon({
+  sendAnalytics({
     page_path: window.location.pathname,
     referrer,
     session_id: sessionId,
@@ -86,7 +98,7 @@ export function trackPageView() {
     if (!session) return;
     const duration = (Date.now() - session.start) / 1000; // seconds
     if (duration < 2) return; // Ignore bounces under 2s
-    sendBeacon({
+    sendAnalytics({
       session_id: session.id,
       session_duration: duration,
     });
