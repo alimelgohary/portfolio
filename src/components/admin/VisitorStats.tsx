@@ -19,6 +19,7 @@ interface PageView {
   browser: string | null;
   os: string | null;
   session_duration: number | null;
+  country: string | null;
 }
 
 const DEVICE_COLORS = ['hsl(var(--primary))', 'hsl(var(--muted-foreground))', 'hsl(var(--accent-foreground))'];
