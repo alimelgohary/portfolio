@@ -4,20 +4,7 @@ import { SectionType, SECTION_LABELS } from '@/types/portfolio';
 import { Badge } from '@/components/ui/badge';
 import { sanitizeHtml } from '@/lib/sanitize';
 import { ExternalLink, MapPin, Calendar, Award, BookOpen, Heart, Terminal } from 'lucide-react';
-
-const trackVisit = () => {
-  if (sessionStorage.getItem('_tracked')) return;
-  sessionStorage.setItem('_tracked', '1');
-  const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
-  fetch(`https://${projectId}.supabase.co/functions/v1/track-visit`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      page_path: window.location.pathname,
-      referrer: document.referrer || null,
-    }),
-  }).catch(() => {});
-};
+import { trackPageView } from '@/lib/analytics';
 
 const NAV_SECTIONS: SectionType[] = ['experience', 'skills', 'projects', 'education', 'certificates', 'trainings', 'volunteering'];
 
@@ -29,7 +16,7 @@ const Index = () => {
   const { getBySection, loading } = usePortfolio();
   const summary = getBySection('summary')[0];
 
-  useEffect(() => { trackVisit(); }, []);
+  useEffect(() => { trackPageView(); }, []);
 
   if (loading) {
     return (

@@ -16,30 +16,45 @@ export type Database = {
     Tables: {
       page_views: {
         Row: {
+          browser: string | null
           country: string | null
           created_at: string
           device_type: string | null
           id: string
+          os: string | null
           page_path: string
           referrer: string | null
+          session_duration: number | null
+          session_id: string | null
+          session_start: string | null
           visitor_id: string
         }
         Insert: {
+          browser?: string | null
           country?: string | null
           created_at?: string
           device_type?: string | null
           id?: string
+          os?: string | null
           page_path?: string
           referrer?: string | null
+          session_duration?: number | null
+          session_id?: string | null
+          session_start?: string | null
           visitor_id: string
         }
         Update: {
+          browser?: string | null
           country?: string | null
           created_at?: string
           device_type?: string | null
           id?: string
+          os?: string | null
           page_path?: string
           referrer?: string | null
+          session_duration?: number | null
+          session_id?: string | null
+          session_start?: string | null
           visitor_id?: string
         }
         Relationships: []
