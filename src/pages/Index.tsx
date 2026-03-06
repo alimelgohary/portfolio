@@ -16,7 +16,7 @@ const Index = () => {
   const { getBySection, loading } = usePortfolio();
   const summary = getBySection('summary')[0];
 
-  useEffect(() => { trackVisit(); }, []);
+  useEffect(() => { trackPageView(); }, []);
 
   if (loading) {
     return (
