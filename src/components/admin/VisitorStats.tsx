@@ -117,6 +117,16 @@ const VisitorStats = () => {
       .slice(0, 5)
       .map(([name, count]) => ({ name, count }));
 
+    // Countries
+    const countryCounts: Record<string, number> = {};
+    filtered.forEach((r) => {
+      const c = r.country || 'Unknown';
+      countryCounts[c] = (countryCounts[c] || 0) + 1;
+    });
+    const countries = Object.entries(countryCounts)
+      .sort((a, b) => b[1] - a[1])
+      .map(([code, count]) => ({ code, count }));
+
     // Daily views
     const dailyMap: Record<string, number> = {};
     for (let i = days - 1; i >= 0; i--) {
@@ -133,7 +143,7 @@ const VisitorStats = () => {
       views,
     }));
 
-    return { totalViews, uniqueVisitors, viewsToday, avgDuration, sources, devices, browsers, operatingSystems, dailyViews };
+    return { totalViews, uniqueVisitors, viewsToday, avgDuration, sources, devices, browsers, operatingSystems, dailyViews, countries };
   }, [data, range]);
 
   if (loading) {
