@@ -42,14 +42,26 @@ function categorizeReferrer(referrer: string): string | null {
   }
 }
 
-function sendBeacon(payload: Record<string, unknown>) {
+function sendAnalytics(payload: Record<string, unknown>) {
   const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
   const url = `https://${projectId}.supabase.co/functions/v1/track-visit`;
   const body = JSON.stringify(payload);
 
+  // Use Blob to ensure correct Content-Type with sendBeacon
+  const blob = new Blob([body], { type: 'application/json' });
+
   // Prefer sendBeacon for reliability on page unload, fallback to fetch
   if (navigator.sendBeacon) {
-    navigator.sendBeacon(url, body);
+    const sent = navigator.sendBeacon(url, blob);
+    if (!sent) {
+      // Fallback if sendBeacon fails (e.g. payload too large)
+      fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body,
+        keepalive: true,
+      }).catch(() => {});
+    }
   } else {
     fetch(url, {
       method: 'POST',
