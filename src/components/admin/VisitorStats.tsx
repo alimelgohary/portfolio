@@ -316,6 +316,25 @@ const VisitorStats = () => {
           </Card>
         )}
       </div>
+
+      {/* Countries */}
+      {stats.countries.length > 0 && (
+        <Card className="p-4">
+          <p className="text-xs text-muted-foreground mb-3">Top Countries</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 max-h-48 overflow-y-auto">
+            {stats.countries.map((c) => {
+              const pct = stats.totalViews > 0 ? Math.round((c.count / stats.totalViews) * 100) : 0;
+              return (
+                <div key={c.code} className="flex items-center gap-2 text-sm p-2 rounded-md bg-muted/50">
+                  <MapPin className="h-3 w-3 text-muted-foreground shrink-0" />
+                  <span className="font-medium uppercase">{c.code}</span>
+                  <span className="ml-auto text-muted-foreground text-xs">{c.count} ({pct}%)</span>
+                </div>
+              );
+            })}
+          </div>
+        </Card>
+      )}
     </div>
   );
 };
