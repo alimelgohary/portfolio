@@ -6,7 +6,7 @@ import {
   PieChart, Pie, Cell, BarChart, Bar,
 } from 'recharts';
 import {
-  Eye, Users, TrendingUp, Globe, Monitor, Smartphone, Tablet, Clock,
+  Eye, Users, TrendingUp, Globe, Monitor, Smartphone, Tablet, Clock, MapPin,
 } from 'lucide-react';
 
 type TimeRange = '7d' | '30d' | '90d';
