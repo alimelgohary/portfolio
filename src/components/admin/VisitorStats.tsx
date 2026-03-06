@@ -6,7 +6,7 @@ import {
   PieChart, Pie, Cell, BarChart, Bar,
 } from 'recharts';
 import {
-  Eye, Users, TrendingUp, Globe, Monitor, Smartphone, Tablet, Clock,
+  Eye, Users, TrendingUp, Globe, Monitor, Smartphone, Tablet, Clock, MapPin,
 } from 'lucide-react';
 
 type TimeRange = '7d' | '30d' | '90d';
@@ -19,6 +19,7 @@ interface PageView {
   browser: string | null;
   os: string | null;
   session_duration: number | null;
+  country: string | null;
 }
 
 const DEVICE_COLORS = ['hsl(var(--primary))', 'hsl(var(--muted-foreground))', 'hsl(var(--accent-foreground))'];
@@ -47,7 +48,7 @@ const VisitorStats = () => {
     (async () => {
       const { data: rows } = await supabase
         .from('page_views')
-        .select('created_at, visitor_id, referrer, device_type, browser, os, session_duration')
+        .select('created_at, visitor_id, referrer, device_type, browser, os, session_duration, country')
         .order('created_at', { ascending: false })
         .limit(10000);
       setData((rows as PageView[]) || []);
@@ -116,6 +117,16 @@ const VisitorStats = () => {
       .slice(0, 5)
       .map(([name, count]) => ({ name, count }));
 
+    // Countries
+    const countryCounts: Record<string, number> = {};
+    filtered.forEach((r) => {
+      const c = r.country || 'Unknown';
+      countryCounts[c] = (countryCounts[c] || 0) + 1;
+    });
+    const countries = Object.entries(countryCounts)
+      .sort((a, b) => b[1] - a[1])
+      .map(([code, count]) => ({ code, count }));
+
     // Daily views
     const dailyMap: Record<string, number> = {};
     for (let i = days - 1; i >= 0; i--) {
@@ -132,7 +143,7 @@ const VisitorStats = () => {
       views,
     }));
 
-    return { totalViews, uniqueVisitors, viewsToday, avgDuration, sources, devices, browsers, operatingSystems, dailyViews };
+    return { totalViews, uniqueVisitors, viewsToday, avgDuration, sources, devices, browsers, operatingSystems, dailyViews, countries };
   }, [data, range]);
 
   if (loading) {
@@ -305,6 +316,25 @@ const VisitorStats = () => {
           </Card>
         )}
       </div>
+
+      {/* Countries */}
+      {stats.countries.length > 0 && (
+        <Card className="p-4">
+          <p className="text-xs text-muted-foreground mb-3">Top Countries</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 max-h-48 overflow-y-auto">
+            {stats.countries.map((c) => {
+              const pct = stats.totalViews > 0 ? Math.round((c.count / stats.totalViews) * 100) : 0;
+              return (
+                <div key={c.code} className="flex items-center gap-2 text-sm p-2 rounded-md bg-muted/50">
+                  <MapPin className="h-3 w-3 text-muted-foreground shrink-0" />
+                  <span className="font-medium uppercase">{c.code}</span>
+                  <span className="ml-auto text-muted-foreground text-xs">{c.count} ({pct}%)</span>
+                </div>
+              );
+            })}
+          </div>
+        </Card>
+      )}
     </div>
   );
 };
