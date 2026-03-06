@@ -48,7 +48,7 @@ const VisitorStats = () => {
     (async () => {
       const { data: rows } = await supabase
         .from('page_views')
-        .select('created_at, visitor_id, referrer, device_type, browser, os, session_duration')
+        .select('created_at, visitor_id, referrer, device_type, browser, os, session_duration, country')
         .order('created_at', { ascending: false })
         .limit(10000);
       setData((rows as PageView[]) || []);
