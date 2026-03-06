@@ -98,7 +98,7 @@ export function trackPageView() {
     if (!session) return;
     const duration = (Date.now() - session.start) / 1000; // seconds
     if (duration < 2) return; // Ignore bounces under 2s
-    sendBeacon({
+    sendAnalytics({
       session_id: session.id,
       session_duration: duration,
     });
