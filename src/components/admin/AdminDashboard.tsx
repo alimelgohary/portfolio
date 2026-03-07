@@ -137,7 +137,7 @@ const AdminDashboard = () => {
       </div>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="max-w-lg max-h-[85vh] overflow-y-auto">
+        <DialogContent className="max-w-lg max-h-[85vh] overflow-y-auto" aria-describedby={undefined}>
           <DialogHeader>
             <DialogTitle>{editingEntry ? 'Edit' : 'Add'} {SECTION_LABELS[activeTab]} Entry</DialogTitle>
           </DialogHeader>
