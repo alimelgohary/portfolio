@@ -80,6 +80,7 @@ export const SECTION_FIELDS: Record<SectionType, FieldConfig[]> = {
     { name: 'organization', label: 'Organization', type: 'text' },
     { name: 'startDate', label: 'Start Date', type: 'text' },
     { name: 'endDate', label: 'End Date', type: 'text' },
+    { name: 'current', label: 'Currently Active', type: 'checkbox' },
     { name: 'description', label: 'Description', type: 'richtext' },
   ],
   trainings: [

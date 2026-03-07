@@ -54,7 +54,6 @@ function sendAnalytics(payload: Record<string, unknown>) {
   if (navigator.sendBeacon) {
     const sent = navigator.sendBeacon(url, blob);
     if (!sent) {
-      // Fallback if sendBeacon fails (e.g. payload too large)
       fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -92,12 +91,15 @@ export function trackPageView() {
     visitor_cookie: visitorCookie,
   });
 
-  // Track session duration on page leave
+  // Track session duration on page leave — use a flag to prevent double-firing
+  let durationSent = false;
   const sendDuration = () => {
+    if (durationSent) return;
     const session = getSessionData();
     if (!session) return;
     const duration = (Date.now() - session.start) / 1000; // seconds
     if (duration < 2) return; // Ignore bounces under 2s
+    durationSent = true;
     sendAnalytics({
       session_id: session.id,
       session_duration: duration,
@@ -105,8 +107,9 @@ export function trackPageView() {
   };
 
   // Use both events for maximum coverage
-  document.addEventListener('visibilitychange', () => {
+  const onVisibilityChange = () => {
     if (document.visibilityState === 'hidden') sendDuration();
-  });
+  };
+  document.addEventListener('visibilitychange', onVisibilityChange);
   window.addEventListener('beforeunload', sendDuration);
 }
