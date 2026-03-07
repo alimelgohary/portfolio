@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
 import { usePortfolio } from '@/contexts/PortfolioContext';
+import { useContactInfo } from '@/hooks/useContactInfo';
 import { SectionType, SECTION_LABELS } from '@/types/portfolio';
 import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { sanitizeHtml } from '@/lib/sanitize';
-import { ExternalLink, MapPin, Calendar, Award, BookOpen, Heart, Terminal } from 'lucide-react';
+import { ExternalLink, MapPin, Calendar, Award, BookOpen, Heart, Terminal, Mail, Phone, Linkedin, Github, FileText } from 'lucide-react';
 import { trackPageView } from '@/lib/analytics';
+import profilePlaceholder from '@/assets/profile-placeholder.png';
 
 const NAV_SECTIONS: SectionType[] = ['experience', 'skills', 'projects', 'education', 'certificates', 'trainings', 'volunteering'];
 
@@ -14,6 +17,7 @@ const SafeHtml = ({ html, className }: { html: string; className?: string }) => 
 
 const Index = () => {
   const { getBySection, loading } = usePortfolio();
+  const { contact } = useContactInfo();
   const summary = getBySection('summary')[0];
 
   useEffect(() => { trackPageView(); }, []);
@@ -25,6 +29,8 @@ const Index = () => {
       </div>
     );
   }
+
+  const hasContact = contact && (contact.email || contact.phone || contact.location || contact.linkedin_url || contact.github_url || contact.cv_url);
 
   return (
     <div className="min-h-screen bg-background">
@@ -45,13 +51,60 @@ const Index = () => {
       <main className="max-w-4xl mx-auto px-6 pb-24">
         {/* Hero */}
         <section id="top" className="pt-24 pb-16">
-          <p className="text-primary font-mono text-sm mb-3">Hello, I'm</p>
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-4">Ali Algohary</h1>
-          <p className="text-xl text-muted-foreground mb-6">Full Stack Developer & DevOps Engineer</p>
-          <div className="gradient-line mb-8" />
-          {summary?.description && (
-            <SafeHtml html={summary.description} className="text-muted-foreground leading-relaxed max-w-2xl rich-content" />
-          )}
+          <div className="flex flex-col md:flex-row md:items-start gap-8">
+            {/* Profile Picture */}
+            <Avatar className="h-32 w-32 md:h-40 md:w-40 shrink-0 ring-2 ring-primary/20 ring-offset-2 ring-offset-background">
+              <AvatarImage src={profilePlaceholder} alt="Ali Algohary" />
+              <AvatarFallback className="text-2xl font-bold bg-muted text-muted-foreground">AA</AvatarFallback>
+            </Avatar>
+
+            <div className="flex-1 min-w-0">
+              <p className="text-primary font-mono text-sm mb-3">Hello, I'm</p>
+              <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-4">Ali Algohary</h1>
+              <p className="text-xl text-muted-foreground mb-4">Full Stack Developer & DevOps Engineer</p>
+
+              {/* Contact Info */}
+              {hasContact && (
+                <div className="flex flex-wrap gap-3 mb-6">
+                  {contact.email && (
+                    <a href={`mailto:${contact.email}`} className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors font-mono">
+                      <Mail className="h-3.5 w-3.5" />{contact.email}
+                    </a>
+                  )}
+                  {contact.phone && (
+                    <a href={`tel:${contact.phone}`} className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors font-mono">
+                      <Phone className="h-3.5 w-3.5" />{contact.phone}
+                    </a>
+                  )}
+                  {contact.location && (
+                    <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground font-mono">
+                      <MapPin className="h-3.5 w-3.5" />{contact.location}
+                    </span>
+                  )}
+                  {contact.linkedin_url && (
+                    <a href={contact.linkedin_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors font-mono">
+                      <Linkedin className="h-3.5 w-3.5" />LinkedIn
+                    </a>
+                  )}
+                  {contact.github_url && (
+                    <a href={contact.github_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors font-mono">
+                      <Github className="h-3.5 w-3.5" />GitHub
+                    </a>
+                  )}
+                  {contact.cv_url && (
+                    <a href={contact.cv_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors font-mono">
+                      <FileText className="h-3.5 w-3.5" />CV
+                    </a>
+                  )}
+                </div>
+              )}
+
+              <div className="gradient-line mb-8" />
+              {summary?.description && (
+                <SafeHtml html={summary.description} className="text-muted-foreground leading-relaxed max-w-2xl rich-content" />
+              )}
+            </div>
+          </div>
         </section>
 
         {/* Experience */}

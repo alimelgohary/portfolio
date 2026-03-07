@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      contact_info: {
+        Row: {
+          cv_url: string | null
+          email: string | null
+          github_url: string | null
+          id: string
+          linkedin_url: string | null
+          location: string | null
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          cv_url?: string | null
+          email?: string | null
+          github_url?: string | null
+          id?: string
+          linkedin_url?: string | null
+          location?: string | null
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          cv_url?: string | null
+          email?: string | null
+          github_url?: string | null
+          id?: string
+          linkedin_url?: string | null
+          location?: string | null
+          phone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       page_views: {
         Row: {
           browser: string | null
