@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import RichTextEditor from '@/components/RichTextEditor';
 import VisitorStats from '@/components/admin/VisitorStats';
+import ContactInfoEditor from '@/components/admin/ContactInfoEditor';
 import { sanitizeHtml } from '@/lib/sanitize';
 import { Plus, Pencil, Trash2, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
