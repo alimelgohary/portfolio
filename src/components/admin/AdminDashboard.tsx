@@ -94,6 +94,7 @@ const AdminDashboard = () => {
       </header>
 
       <div className="max-w-5xl mx-auto px-6 py-8">
+        <ContactInfoEditor />
         <VisitorStats />
         <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as SectionType)}>
           <TabsList className="flex flex-wrap h-auto gap-1 bg-muted p-1 mb-6">
