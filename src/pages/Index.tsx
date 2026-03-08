@@ -5,7 +5,7 @@ import { SectionType, SECTION_LABELS } from '@/types/portfolio';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { sanitizeHtml } from '@/lib/sanitize';
-import { ExternalLink, MapPin, Calendar, Award, BookOpen, Heart, Terminal, Mail, Phone, Linkedin, Github, FileText } from 'lucide-react';
+import { ExternalLink, MapPin, Calendar, Award, BookOpen, Heart, Terminal, Mail, Phone, Linkedin, Github, FileText, MessageSquareQuote, User } from 'lucide-react';
 import { trackPageView } from '@/lib/analytics';
 import profilePlaceholder from '@/assets/profile-placeholder.png';
 
