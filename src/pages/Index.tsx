@@ -154,8 +154,10 @@ const Index = () => {
             );
           })()}
         </Section>
+        )}
 
         {/* Projects */}
+        {getBySection('projects').length > 0 && (
         <Section id="projects" title="Projects" icon={<BookOpen className="h-5 w-5 text-primary" />}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {getBySection('projects').map((p) => (
