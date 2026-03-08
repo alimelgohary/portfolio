@@ -41,7 +41,7 @@ export const SECTION_LABELS: Record<SectionType, string> = {
 
 export const ALL_SECTIONS: SectionType[] = [
   'summary', 'experience', 'education', 'projects',
-  'volunteering', 'trainings', 'certificates', 'skills',
+  'volunteering', 'trainings', 'certificates', 'skills', 'testimonials',
 ];
 
 export interface FieldConfig {
