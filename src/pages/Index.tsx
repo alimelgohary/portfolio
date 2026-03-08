@@ -254,6 +254,7 @@ const Index = () => {
             ))}
           </div>
         </Section>
+        )}
 
         {/* Testimonials */}
         {getBySection('testimonials').length > 0 && (
