@@ -178,8 +178,10 @@ const Index = () => {
             ))}
           </div>
         </Section>
+        )}
 
         {/* Education */}
+        {getBySection('education').length > 0 && (
         <Section id="education" title="Education" icon={<BookOpen className="h-5 w-5 text-primary" />}>
           <div className="space-y-6">
             {getBySection('education').map((e) => (
