@@ -1,73 +1,91 @@
-# Welcome to your Lovable project
+# Ali Algohary — Portfolio
 
-## Project info
+A modern, fully dynamic portfolio website with an integrated admin dashboard for managing content, built with React, TypeScript, and Lovable Cloud.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## ✨ Features
 
-## How can I edit this code?
+- **Dynamic Portfolio Sections** — Summary, Experience, Education, Projects, Volunteering, Trainings, Certificates, Skills, and Testimonials — all editable from the admin panel.
+- **Admin Dashboard** (`/admin`) — Secure, authenticated admin area to create, edit, and delete portfolio entries with a rich text editor.
+- **RTL/LTR Support** — Automatic text direction detection for mixed Arabic and English content.
+- **Visitor Analytics** — Privacy-friendly page view tracking with daily charts, unique visitor counts, and top referrers displayed in the admin dashboard.
+- **Contact Info Management** — Editable contact details (email, phone, LinkedIn, GitHub, CV link) managed through the admin.
+- **Responsive Design** — Fully responsive layout optimized for desktop and mobile.
+- **SEO Optimized** — Semantic HTML, meta tags, sitemap, and robots.txt included.
 
-There are several ways of editing your application.
+## 🛠 Tech Stack
 
-**Use Lovable**
+| Layer      | Technology                          |
+|------------|-------------------------------------|
+| Frontend   | React 18, TypeScript, Vite          |
+| Styling    | Tailwind CSS, shadcn/ui             |
+| Backend    | Lovable Cloud (database, auth, edge functions) |
+| Charts     | Recharts                            |
+| Sanitization | DOMPurify                         |
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## 🚀 Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- [Node.js](https://nodejs.org/) (v18+)
+- npm or bun
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Local Development
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
+```bash
+# Clone the repository
 git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
 cd <YOUR_PROJECT_NAME>
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Install dependencies
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start the dev server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The app will be available at `http://localhost:5173`.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 📁 Project Structure
 
-**Use GitHub Codespaces**
+```
+src/
+├── components/
+│   ├── admin/          # Admin dashboard components
+│   │   ├── AdminDashboard.tsx
+│   │   ├── AdminLogin.tsx
+│   │   ├── ContactInfoEditor.tsx
+│   │   └── VisitorStats.tsx
+│   ├── ui/             # shadcn/ui components
+│   ├── NavLink.tsx
+│   └── RichTextEditor.tsx
+├── contexts/
+│   ├── AuthContext.tsx  # Authentication state
+│   └── PortfolioContext.tsx  # Portfolio data management
+├── hooks/              # Custom React hooks
+├── lib/                # Utilities (analytics, sanitization)
+├── pages/
+│   ├── Index.tsx       # Public portfolio page
+│   ├── Admin.tsx       # Admin route
+│   └── NotFound.tsx
+└── types/
+    └── portfolio.ts    # Type definitions & section config
+supabase/
+└── functions/
+    └── track-visit/    # Edge function for analytics
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🔐 Authentication
 
-## What technologies are used for this project?
+The admin panel uses email/password authentication. The first registered user can be assigned the admin role. Role-based access control is enforced via database-level security policies.
 
-This project is built with:
+## 📊 Analytics
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Page views are tracked via a privacy-friendly edge function that generates anonymous visitor IDs server-side (no cookies). Stats are visible only to authenticated admins.
 
-## How can I deploy this project?
+## 🌐 Deployment
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+Deploy instantly via [Lovable](https://lovable.dev) — click **Share → Publish**. Backend changes (edge functions, database) deploy automatically.
 
-## Can I connect a custom domain to my Lovable project?
+## 📄 License
 
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+This project is private. All rights reserved.
