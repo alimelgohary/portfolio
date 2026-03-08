@@ -108,6 +108,7 @@ const Index = () => {
         </section>
 
         {/* Experience */}
+        {getBySection('experience').length > 0 && (
         <Section id="experience" title="Experience" icon={<Terminal className="h-5 w-5 text-primary" />}>
           <div className="space-y-8">
             {getBySection('experience').map((e) => (
