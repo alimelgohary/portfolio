@@ -39,7 +39,7 @@ const Index = () => {
         <div className="max-w-4xl mx-auto px-6 flex items-center h-14 gap-6 overflow-x-auto">
           <a href="#top" className="text-primary font-mono font-medium text-sm shrink-0">~/ali-algohary</a>
           <div className="flex gap-4 ml-auto">
-            {NAV_SECTIONS.map((s) => (
+            {NAV_SECTIONS.filter((s) => getBySection(s).length > 0).map((s) => (
               <a key={s} href={`#${s}`} className="text-xs text-muted-foreground hover:text-foreground transition-colors shrink-0">
                 {SECTION_LABELS[s]}
               </a>
@@ -108,6 +108,7 @@ const Index = () => {
         </section>
 
         {/* Experience */}
+        {getBySection('experience').length > 0 && (
         <Section id="experience" title="Experience" icon={<Terminal className="h-5 w-5 text-primary" />}>
           <div className="space-y-8">
             {getBySection('experience').map((e) => (
@@ -126,8 +127,10 @@ const Index = () => {
             ))}
           </div>
         </Section>
+        )}
 
         {/* Skills */}
+        {getBySection('skills').length > 0 && (
         <Section id="skills" title="Skills" icon={<Terminal className="h-5 w-5 text-primary" />}>
           {(() => {
             const skills = getBySection('skills');
@@ -151,8 +154,10 @@ const Index = () => {
             );
           })()}
         </Section>
+        )}
 
         {/* Projects */}
+        {getBySection('projects').length > 0 && (
         <Section id="projects" title="Projects" icon={<BookOpen className="h-5 w-5 text-primary" />}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {getBySection('projects').map((p) => (
@@ -173,8 +178,10 @@ const Index = () => {
             ))}
           </div>
         </Section>
+        )}
 
         {/* Education */}
+        {getBySection('education').length > 0 && (
         <Section id="education" title="Education" icon={<BookOpen className="h-5 w-5 text-primary" />}>
           <div className="space-y-6">
             {getBySection('education').map((e) => (
@@ -191,8 +198,10 @@ const Index = () => {
             ))}
           </div>
         </Section>
+        )}
 
         {/* Certificates */}
+        {getBySection('certificates').length > 0 && (
         <Section id="certificates" title="Certificates" icon={<Award className="h-5 w-5 text-primary" />}>
           <div className="space-y-4">
             {getBySection('certificates').map((c) => (
@@ -210,8 +219,10 @@ const Index = () => {
             ))}
           </div>
         </Section>
+        )}
 
         {/* Trainings */}
+        {getBySection('trainings').length > 0 && (
         <Section id="trainings" title="Trainings" icon={<BookOpen className="h-5 w-5 text-primary" />}>
           <div className="space-y-4">
             {getBySection('trainings').map((t) => (
@@ -224,8 +235,10 @@ const Index = () => {
             ))}
           </div>
         </Section>
+        )}
 
         {/* Volunteering */}
+        {getBySection('volunteering').length > 0 && (
         <Section id="volunteering" title="Volunteering" icon={<Heart className="h-5 w-5 text-primary" />}>
           <div className="space-y-6">
             {getBySection('volunteering').map((v) => (
@@ -241,6 +254,7 @@ const Index = () => {
             ))}
           </div>
         </Section>
+        )}
 
         {/* Testimonials */}
         {getBySection('testimonials').length > 0 && (
