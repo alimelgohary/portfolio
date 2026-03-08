@@ -12,7 +12,7 @@ import profilePlaceholder from '@/assets/profile-placeholder.png';
 const NAV_SECTIONS: SectionType[] = ['experience', 'skills', 'projects', 'education', 'certificates', 'trainings', 'volunteering', 'testimonials'];
 
 const SafeHtml = ({ html, className }: { html: string; className?: string }) => (
-  <div className={className} dangerouslySetInnerHTML={{ __html: sanitizeHtml(html) }} />
+  <div dir="auto" className={className} dangerouslySetInnerHTML={{ __html: sanitizeHtml(html) }} />
 );
 
 const Index = () => {
