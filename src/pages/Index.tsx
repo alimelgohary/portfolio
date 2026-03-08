@@ -241,6 +241,32 @@ const Index = () => {
             ))}
           </div>
         </Section>
+
+        {/* Testimonials */}
+        {getBySection('testimonials').length > 0 && (
+          <Section id="testimonials" title="Testimonials" icon={<MessageSquareQuote className="h-5 w-5 text-primary" />}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {getBySection('testimonials').map((t) => (
+                <div key={t.id} className="rounded-lg border border-border bg-card p-6 flex flex-col gap-4">
+                  <div className="text-primary/30 text-4xl font-serif leading-none">"</div>
+                  {t.description && <SafeHtml html={t.description} className="text-sm text-muted-foreground rich-content flex-1 italic" />}
+                  <div className="flex items-center gap-3 pt-2 border-t border-border">
+                    <Avatar className="h-10 w-10 shrink-0">
+                      <AvatarImage src={profilePlaceholder} alt={t.title || 'Anonymous'} />
+                      <AvatarFallback className="bg-muted text-muted-foreground">
+                        <User className="h-4 w-4" />
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium truncate">{t.title || 'Anonymous'}</p>
+                      {t.organization && <p className="text-xs text-muted-foreground truncate">{t.organization}</p>}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Section>
+        )}
       </main>
 
       {/* Footer */}
