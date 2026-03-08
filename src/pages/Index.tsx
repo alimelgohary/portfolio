@@ -39,7 +39,7 @@ const Index = () => {
         <div className="max-w-4xl mx-auto px-6 flex items-center h-14 gap-6 overflow-x-auto">
           <a href="#top" className="text-primary font-mono font-medium text-sm shrink-0">~/ali-algohary</a>
           <div className="flex gap-4 ml-auto">
-            {NAV_SECTIONS.map((s) => (
+            {NAV_SECTIONS.filter((s) => getBySection(s).length > 0).map((s) => (
               <a key={s} href={`#${s}`} className="text-xs text-muted-foreground hover:text-foreground transition-colors shrink-0">
                 {SECTION_LABELS[s]}
               </a>
