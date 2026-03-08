@@ -198,8 +198,10 @@ const Index = () => {
             ))}
           </div>
         </Section>
+        )}
 
         {/* Certificates */}
+        {getBySection('certificates').length > 0 && (
         <Section id="certificates" title="Certificates" icon={<Award className="h-5 w-5 text-primary" />}>
           <div className="space-y-4">
             {getBySection('certificates').map((c) => (
