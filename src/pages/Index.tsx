@@ -127,8 +127,10 @@ const Index = () => {
             ))}
           </div>
         </Section>
+        )}
 
         {/* Skills */}
+        {getBySection('skills').length > 0 && (
         <Section id="skills" title="Skills" icon={<Terminal className="h-5 w-5 text-primary" />}>
           {(() => {
             const skills = getBySection('skills');
