@@ -36,6 +36,7 @@ export const SECTION_LABELS: Record<SectionType, string> = {
   trainings: 'Trainings',
   certificates: 'Certificates',
   skills: 'Skills',
+  testimonials: 'Testimonials',
 };
 
 export const ALL_SECTIONS: SectionType[] = [
