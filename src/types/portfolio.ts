@@ -6,7 +6,8 @@ export type SectionType =
   | 'volunteering'
   | 'trainings'
   | 'certificates'
-  | 'skills';
+  | 'skills'
+  | 'testimonials';
 
 export interface PortfolioEntry {
   id: string;
