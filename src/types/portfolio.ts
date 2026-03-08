@@ -6,7 +6,8 @@ export type SectionType =
   | 'volunteering'
   | 'trainings'
   | 'certificates'
-  | 'skills';
+  | 'skills'
+  | 'testimonials';
 
 export interface PortfolioEntry {
   id: string;
@@ -35,11 +36,12 @@ export const SECTION_LABELS: Record<SectionType, string> = {
   trainings: 'Trainings',
   certificates: 'Certificates',
   skills: 'Skills',
+  testimonials: 'Testimonials',
 };
 
 export const ALL_SECTIONS: SectionType[] = [
   'summary', 'experience', 'education', 'projects',
-  'volunteering', 'trainings', 'certificates', 'skills',
+  'volunteering', 'trainings', 'certificates', 'skills', 'testimonials',
 ];
 
 export interface FieldConfig {
@@ -100,5 +102,10 @@ export const SECTION_FIELDS: Record<SectionType, FieldConfig[]> = {
     { name: 'title', label: 'Skill Name', type: 'text' },
     { name: 'category', label: 'Category', type: 'text' },
     { name: 'level', label: 'Proficiency (1-5)', type: 'number' },
+  ],
+  testimonials: [
+    { name: 'title', label: 'Name (optional)', type: 'text' },
+    { name: 'organization', label: 'Role / Company', type: 'text' },
+    { name: 'description', label: 'Testimonial', type: 'richtext' },
   ],
 };
