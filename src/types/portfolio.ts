@@ -103,4 +103,9 @@ export const SECTION_FIELDS: Record<SectionType, FieldConfig[]> = {
     { name: 'category', label: 'Category', type: 'text' },
     { name: 'level', label: 'Proficiency (1-5)', type: 'number' },
   ],
+  testimonials: [
+    { name: 'title', label: 'Name (optional)', type: 'text' },
+    { name: 'organization', label: 'Role / Company', type: 'text' },
+    { name: 'description', label: 'Testimonial', type: 'richtext' },
+  ],
 };
