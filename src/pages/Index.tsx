@@ -235,8 +235,10 @@ const Index = () => {
             ))}
           </div>
         </Section>
+        )}
 
         {/* Volunteering */}
+        {getBySection('volunteering').length > 0 && (
         <Section id="volunteering" title="Volunteering" icon={<Heart className="h-5 w-5 text-primary" />}>
           <div className="space-y-6">
             {getBySection('volunteering').map((v) => (
