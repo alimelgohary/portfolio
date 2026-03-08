@@ -8,6 +8,7 @@ import { sanitizeHtml } from '@/lib/sanitize';
 import { ExternalLink, MapPin, Calendar, Award, BookOpen, Heart, Terminal, Mail, Phone, Linkedin, Github, FileText, MessageSquareQuote, User } from 'lucide-react';
 import { trackPageView } from '@/lib/analytics';
 import profilePlaceholder from '@/assets/profile-placeholder.png';
+import profilePic from '@/assets/profile.png';
 
 const NAV_SECTIONS: SectionType[] = ['experience', 'skills', 'projects', 'education', 'certificates', 'trainings', 'volunteering', 'testimonials'];
 
@@ -54,7 +55,7 @@ const Index = () => {
           <div className="flex flex-col md:flex-row md:items-start gap-8">
             {/* Profile Picture */}
             <Avatar className="h-32 w-32 md:h-40 md:w-40 shrink-0 ring-2 ring-primary/20 ring-offset-2 ring-offset-background">
-              <AvatarImage src={profilePlaceholder} alt="Ali Algohary" />
+              <AvatarImage src={profilePic} alt="Ali Algohary" />
               <AvatarFallback className="text-2xl font-bold bg-muted text-muted-foreground">AA</AvatarFallback>
             </Avatar>
 
