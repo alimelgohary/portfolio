@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import RichTextEditor from '@/components/RichTextEditor';
 import VisitorStats from '@/components/admin/VisitorStats';
 import ContactInfoEditor from '@/components/admin/ContactInfoEditor';
+import ImageUploadField from '@/components/admin/ImageUploadField';
 import { sanitizeHtml } from '@/lib/sanitize';
 import { Plus, Pencil, Trash2, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
