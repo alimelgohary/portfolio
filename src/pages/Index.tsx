@@ -66,35 +66,35 @@ const Index = () => {
 
               {/* Contact Info */}
               {hasContact && (
-                <div className="flex flex-wrap gap-3 mb-6">
+                <div className="flex flex-wrap gap-2 mb-6">
                   {contact.email && (
-                    <a href={`mailto:${contact.email}`} className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors font-mono">
-                      <Mail className="h-3.5 w-3.5" />{contact.email}
+                    <a href={`mailto:${contact.email}`} className="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-md border border-border bg-card hover:border-primary hover:text-primary transition-colors font-mono">
+                      <Mail className="h-4 w-4" />{contact.email}
                     </a>
                   )}
                   {contact.phone && (
-                    <a href={`tel:${contact.phone}`} className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors font-mono">
-                      <Phone className="h-3.5 w-3.5" />{contact.phone}
+                    <a href={`tel:${contact.phone}`} className="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-md border border-border bg-card hover:border-primary hover:text-primary transition-colors font-mono">
+                      <Phone className="h-4 w-4" />{contact.phone}
                     </a>
                   )}
                   {contact.location && (
-                    <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground font-mono">
-                      <MapPin className="h-3.5 w-3.5" />{contact.location}
+                    <span className="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-md border border-border bg-card text-muted-foreground font-mono">
+                      <MapPin className="h-4 w-4" />{contact.location}
                     </span>
                   )}
                   {contact.linkedin_url && (
-                    <a href={contact.linkedin_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors font-mono">
-                      <Linkedin className="h-3.5 w-3.5" />LinkedIn
+                    <a href={contact.linkedin_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-md border border-border bg-card hover:border-primary hover:text-primary transition-colors font-mono">
+                      <Linkedin className="h-4 w-4" />LinkedIn
                     </a>
                   )}
                   {contact.github_url && (
-                    <a href={contact.github_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors font-mono">
-                      <Github className="h-3.5 w-3.5" />GitHub
+                    <a href={contact.github_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-md border border-border bg-card hover:border-primary hover:text-primary transition-colors font-mono">
+                      <Github className="h-4 w-4" />GitHub
                     </a>
                   )}
                   {contact.cv_url && (
-                    <a href={contact.cv_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors font-mono">
-                      <FileText className="h-3.5 w-3.5" />CV
+                    <a href={contact.cv_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-md border border-primary/40 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors font-mono font-medium">
+                      <FileText className="h-4 w-4" />Download CV
                     </a>
                   )}
                 </div>
@@ -162,19 +162,36 @@ const Index = () => {
         <Section id="projects" title="Projects" icon={<BookOpen className="h-5 w-5 text-primary" />}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {getBySection('projects').map((p) => (
-              <div key={p.id} className="rounded-lg border border-border bg-card p-5 hover:border-primary/30 transition-colors">
-                <div className="flex items-start justify-between mb-2">
-                  <h3 className="font-semibold">{p.title}</h3>
-                  {p.url && <a href={p.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:opacity-80"><ExternalLink className="h-4 w-4" /></a>}
-                </div>
-                {p.description && <SafeHtml html={p.description} className="text-sm text-muted-foreground mb-3 rich-content" />}
-                {p.technologies && (
-                  <div className="flex flex-wrap gap-1.5">
-                    {p.technologies.map((t) => (
-                      <span key={t} className="text-xs font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">{t}</span>
-                    ))}
-                  </div>
+              <div key={p.id} className="rounded-lg border border-border bg-card overflow-hidden hover:border-primary/30 transition-colors flex flex-col">
+                {p.imageUrl && (
+                  <a
+                    href={p.url || p.imageUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block aspect-video overflow-hidden bg-muted"
+                  >
+                    <img
+                      src={p.imageUrl}
+                      alt={p.title || 'Project image'}
+                      loading="lazy"
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    />
+                  </a>
                 )}
+                <div className="p-5 flex-1 flex flex-col">
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="font-semibold">{p.title}</h3>
+                    {p.url && <a href={p.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:opacity-80"><ExternalLink className="h-4 w-4" /></a>}
+                  </div>
+                  {p.description && <SafeHtml html={p.description} className="text-sm text-muted-foreground mb-3 rich-content" />}
+                  {p.technologies && (
+                    <div className="flex flex-wrap gap-1.5 mt-auto">
+                      {p.technologies.map((t) => (
+                        <span key={t} className="text-xs font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">{t}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
           </div>
