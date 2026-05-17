@@ -20,6 +20,7 @@ const toFrontend = (row: DbEntry): PortfolioEntry => ({
   category: row.category ?? undefined,
   level: row.level ?? undefined,
   credentialUrl: row.credential_url ?? undefined,
+  imageUrl: (row as DbEntry & { image_url?: string | null }).image_url ?? undefined,
   order: row.sort_order,
 });
 
