@@ -186,6 +186,12 @@ const AdminDashboard = () => {
                     onChange={(val) => updateField(field.name, val)}
                   />
                 )}
+                {field.type === 'image' && (
+                  <ImageUploadField
+                    value={(formData[field.name] as string) || undefined}
+                    onChange={(url) => updateField(field.name, url)}
+                  />
+                )}
               </div>
             ))}
             <div className="flex justify-end gap-2 pt-2">
