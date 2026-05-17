@@ -39,6 +39,7 @@ const toDb = (entry: Partial<PortfolioEntry>): Partial<TablesInsert<'portfolio_e
   if (entry.category !== undefined) result.category = entry.category;
   if (entry.level !== undefined) result.level = entry.level;
   if (entry.credentialUrl !== undefined) result.credential_url = entry.credentialUrl;
+  if (entry.imageUrl !== undefined) result.image_url = entry.imageUrl;
   if (entry.order !== undefined) result.sort_order = entry.order;
   return result as Partial<TablesInsert<'portfolio_entries'>>;
 };
