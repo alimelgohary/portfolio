@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import RichTextEditor from '@/components/RichTextEditor';
 import VisitorStats from '@/components/admin/VisitorStats';
 import ContactInfoEditor from '@/components/admin/ContactInfoEditor';
+import ImageUploadField from '@/components/admin/ImageUploadField';
 import { sanitizeHtml } from '@/lib/sanitize';
 import { Plus, Pencil, Trash2, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -183,6 +184,12 @@ const AdminDashboard = () => {
                     key={editingEntry?.id || 'new'}
                     value={(formData[field.name] as string) || ''}
                     onChange={(val) => updateField(field.name, val)}
+                  />
+                )}
+                {field.type === 'image' && (
+                  <ImageUploadField
+                    value={(formData[field.name] as string) || undefined}
+                    onChange={(url) => updateField(field.name, url)}
                   />
                 )}
               </div>
