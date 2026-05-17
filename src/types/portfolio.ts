@@ -24,6 +24,7 @@ export interface PortfolioEntry {
   category?: string;
   level?: number;
   credentialUrl?: string;
+  imageUrl?: string;
   order: number;
 }
 
