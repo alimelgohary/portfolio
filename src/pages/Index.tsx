@@ -66,35 +66,35 @@ const Index = () => {
 
               {/* Contact Info */}
               {hasContact && (
-                <div className="flex flex-wrap gap-3 mb-6">
+                <div className="flex flex-wrap gap-2 mb-6">
                   {contact.email && (
-                    <a href={`mailto:${contact.email}`} className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors font-mono">
-                      <Mail className="h-3.5 w-3.5" />{contact.email}
+                    <a href={`mailto:${contact.email}`} className="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-md border border-border bg-card hover:border-primary hover:text-primary transition-colors font-mono">
+                      <Mail className="h-4 w-4" />{contact.email}
                     </a>
                   )}
                   {contact.phone && (
-                    <a href={`tel:${contact.phone}`} className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors font-mono">
-                      <Phone className="h-3.5 w-3.5" />{contact.phone}
+                    <a href={`tel:${contact.phone}`} className="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-md border border-border bg-card hover:border-primary hover:text-primary transition-colors font-mono">
+                      <Phone className="h-4 w-4" />{contact.phone}
                     </a>
                   )}
                   {contact.location && (
-                    <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground font-mono">
-                      <MapPin className="h-3.5 w-3.5" />{contact.location}
+                    <span className="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-md border border-border bg-card text-muted-foreground font-mono">
+                      <MapPin className="h-4 w-4" />{contact.location}
                     </span>
                   )}
                   {contact.linkedin_url && (
-                    <a href={contact.linkedin_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors font-mono">
-                      <Linkedin className="h-3.5 w-3.5" />LinkedIn
+                    <a href={contact.linkedin_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-md border border-border bg-card hover:border-primary hover:text-primary transition-colors font-mono">
+                      <Linkedin className="h-4 w-4" />LinkedIn
                     </a>
                   )}
                   {contact.github_url && (
-                    <a href={contact.github_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors font-mono">
-                      <Github className="h-3.5 w-3.5" />GitHub
+                    <a href={contact.github_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-md border border-border bg-card hover:border-primary hover:text-primary transition-colors font-mono">
+                      <Github className="h-4 w-4" />GitHub
                     </a>
                   )}
                   {contact.cv_url && (
-                    <a href={contact.cv_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors font-mono">
-                      <FileText className="h-3.5 w-3.5" />CV
+                    <a href={contact.cv_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-md border border-primary/40 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors font-mono font-medium">
+                      <FileText className="h-4 w-4" />Download CV
                     </a>
                   )}
                 </div>
