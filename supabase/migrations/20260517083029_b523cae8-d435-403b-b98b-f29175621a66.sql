@@ -1,0 +1,1 @@
+ALTER TABLE public.portfolio_entries ADD COLUMN image_url text;

@@ -100,6 +100,7 @@ export type Database = {
           description: string | null
           end_date: string | null
           id: string
+          image_url: string | null
           is_current: boolean | null
           level: number | null
           location: string | null
@@ -119,6 +120,7 @@ export type Database = {
           description?: string | null
           end_date?: string | null
           id?: string
+          image_url?: string | null
           is_current?: boolean | null
           level?: number | null
           location?: string | null
@@ -138,6 +140,7 @@ export type Database = {
           description?: string | null
           end_date?: string | null
           id?: string
+          image_url?: string | null
           is_current?: boolean | null
           level?: number | null
           location?: string | null
