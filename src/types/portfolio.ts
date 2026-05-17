@@ -48,7 +48,7 @@ export const ALL_SECTIONS: SectionType[] = [
 export interface FieldConfig {
   name: keyof PortfolioEntry;
   label: string;
-  type: 'text' | 'richtext' | 'checkbox' | 'number' | 'technologies';
+  type: 'text' | 'richtext' | 'checkbox' | 'number' | 'technologies' | 'image';
 }
 
 export const SECTION_FIELDS: Record<SectionType, FieldConfig[]> = {
