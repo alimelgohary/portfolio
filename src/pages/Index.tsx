@@ -162,19 +162,36 @@ const Index = () => {
         <Section id="projects" title="Projects" icon={<BookOpen className="h-5 w-5 text-primary" />}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {getBySection('projects').map((p) => (
-              <div key={p.id} className="rounded-lg border border-border bg-card p-5 hover:border-primary/30 transition-colors">
-                <div className="flex items-start justify-between mb-2">
-                  <h3 className="font-semibold">{p.title}</h3>
-                  {p.url && <a href={p.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:opacity-80"><ExternalLink className="h-4 w-4" /></a>}
-                </div>
-                {p.description && <SafeHtml html={p.description} className="text-sm text-muted-foreground mb-3 rich-content" />}
-                {p.technologies && (
-                  <div className="flex flex-wrap gap-1.5">
-                    {p.technologies.map((t) => (
-                      <span key={t} className="text-xs font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">{t}</span>
-                    ))}
-                  </div>
+              <div key={p.id} className="rounded-lg border border-border bg-card overflow-hidden hover:border-primary/30 transition-colors flex flex-col">
+                {p.imageUrl && (
+                  <a
+                    href={p.url || p.imageUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block aspect-video overflow-hidden bg-muted"
+                  >
+                    <img
+                      src={p.imageUrl}
+                      alt={p.title || 'Project image'}
+                      loading="lazy"
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    />
+                  </a>
                 )}
+                <div className="p-5 flex-1 flex flex-col">
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="font-semibold">{p.title}</h3>
+                    {p.url && <a href={p.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:opacity-80"><ExternalLink className="h-4 w-4" /></a>}
+                  </div>
+                  {p.description && <SafeHtml html={p.description} className="text-sm text-muted-foreground mb-3 rich-content" />}
+                  {p.technologies && (
+                    <div className="flex flex-wrap gap-1.5 mt-auto">
+                      {p.technologies.map((t) => (
+                        <span key={t} className="text-xs font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">{t}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
           </div>
