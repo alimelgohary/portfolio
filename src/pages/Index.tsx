@@ -26,7 +26,7 @@ const Index = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <p className="text-muted-foreground font-mono text-sm">Loading portfolio...</p>
+        <p className="text-foreground font-mono text-sm uppercase tracking-widest">Loading_portfolio...</p>
       </div>
     );
   }
@@ -36,12 +36,15 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Nav */}
-      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-        <div className="max-w-4xl mx-auto px-6 flex items-center h-14 gap-6 overflow-x-auto">
-          <a href="#top" className="text-primary font-mono font-medium text-sm shrink-0">~/ali-algohary</a>
-          <div className="flex gap-4 ml-auto">
+      <nav className="sticky top-0 z-50 bg-background border-b-2 border-foreground">
+        <div className="max-w-6xl mx-auto px-6 flex items-center h-16 gap-6 overflow-x-auto">
+          <a href="#top" className="font-display font-extrabold text-base shrink-0 uppercase tracking-tight">
+            <span className="bg-foreground text-background px-2 py-1">ALI</span>
+            <span className="ml-2">/ALGOHARY</span>
+          </a>
+          <div className="flex gap-1 ml-auto">
             {NAV_SECTIONS.filter((s) => getBySection(s).length > 0).map((s) => (
-              <a key={s} href={`#${s}`} className="text-xs text-muted-foreground hover:text-foreground transition-colors shrink-0">
+              <a key={s} href={`#${s}`} className="text-xs font-bold uppercase tracking-wider px-3 py-2 hover:bg-primary hover:text-primary-foreground transition-colors shrink-0">
                 {SECTION_LABELS[s]}
               </a>
             ))}
@@ -49,81 +52,84 @@ const Index = () => {
         </div>
       </nav>
 
-      <main className="max-w-4xl mx-auto px-6 pb-24">
+      <main>
         {/* Hero */}
-        <section id="top" className="pt-24 pb-16">
-          <div className="flex flex-col md:flex-row md:items-start gap-8">
-            {/* Profile Picture */}
-            <Avatar className="h-32 w-32 md:h-40 md:w-40 shrink-0 ring-2 ring-primary/20 ring-offset-2 ring-offset-background">
-              <AvatarImage src={profilePic} alt="Ali Algohary" />
-              <AvatarFallback className="text-2xl font-bold bg-muted text-muted-foreground">AA</AvatarFallback>
-            </Avatar>
+        <section id="top" className="w-full border-b-2 border-foreground bg-background">
+          <div className="max-w-6xl mx-auto px-6 py-20 md:py-28">
+            <div className="flex flex-col md:flex-row md:items-start gap-10">
+              <Avatar className="h-36 w-36 md:h-48 md:w-48 shrink-0 rounded-none border-2 border-foreground brutal-shadow">
+                <AvatarImage src={profilePic} alt="Ali Algohary" className="rounded-none" />
+                <AvatarFallback className="text-3xl font-extrabold bg-secondary text-foreground rounded-none font-display">AA</AvatarFallback>
+              </Avatar>
 
-            <div className="flex-1 min-w-0">
-              <p className="text-primary font-mono text-sm mb-3">Hello, I'm</p>
-              <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-4">Ali Algohary</h1>
-              <p className="text-xl text-muted-foreground mb-4">Full Stack Developer & DevOps Engineer</p>
+              <div className="flex-1 min-w-0">
+                <p className="font-mono text-xs uppercase tracking-[0.3em] mb-4 inline-block bg-foreground text-background px-2 py-1">{'>'} hello_world</p>
+                <h1 className="font-display text-6xl md:text-8xl font-extrabold tracking-tighter mb-4 leading-[0.9]">
+                  Ali<br/>Algohary<span className="text-primary">.</span>
+                </h1>
+                <p className="text-xl md:text-2xl font-semibold mb-8">
+                  <span className="highlight-accent px-1">Full Stack Developer</span> &amp; DevOps Engineer
+                </p>
 
-              {/* Contact Info */}
-              {hasContact && (
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {contact.email && (
-                    <a href={`mailto:${contact.email}`} className="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-md border border-border bg-card hover:border-primary hover:text-primary transition-colors font-mono">
-                      <Mail className="h-4 w-4" />{contact.email}
-                    </a>
-                  )}
-                  {contact.phone && (
-                    <a href={`tel:${contact.phone}`} className="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-md border border-border bg-card hover:border-primary hover:text-primary transition-colors font-mono">
-                      <Phone className="h-4 w-4" />{contact.phone}
-                    </a>
-                  )}
-                  {contact.location && (
-                    <span className="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-md border border-border bg-card text-muted-foreground font-mono">
-                      <MapPin className="h-4 w-4" />{contact.location}
-                    </span>
-                  )}
-                  {contact.linkedin_url && (
-                    <a href={contact.linkedin_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-md border border-border bg-card hover:border-primary hover:text-primary transition-colors font-mono">
-                      <Linkedin className="h-4 w-4" />LinkedIn
-                    </a>
-                  )}
-                  {contact.github_url && (
-                    <a href={contact.github_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-md border border-border bg-card hover:border-primary hover:text-primary transition-colors font-mono">
-                      <Github className="h-4 w-4" />GitHub
-                    </a>
-                  )}
-                  {contact.cv_url && (
-                    <a href={contact.cv_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-md border border-primary/40 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors font-mono font-medium">
-                      <FileText className="h-4 w-4" />Download CV
-                    </a>
-                  )}
-                </div>
-              )}
+                {hasContact && (
+                  <div className="flex flex-wrap gap-3 mb-8">
+                    {contact.email && (
+                      <a href={`mailto:${contact.email}`} className="inline-flex items-center gap-2 text-sm px-4 py-2.5 brutal-border bg-card font-mono font-medium hover:bg-primary hover:text-primary-foreground transition-colors brutal-shadow-sm hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none">
+                        <Mail className="h-4 w-4" />{contact.email}
+                      </a>
+                    )}
+                    {contact.phone && (
+                      <a href={`tel:${contact.phone}`} className="inline-flex items-center gap-2 text-sm px-4 py-2.5 brutal-border bg-card font-mono font-medium hover:bg-primary hover:text-primary-foreground transition-colors brutal-shadow-sm hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none">
+                        <Phone className="h-4 w-4" />{contact.phone}
+                      </a>
+                    )}
+                    {contact.location && (
+                      <span className="inline-flex items-center gap-2 text-sm px-4 py-2.5 brutal-border bg-muted font-mono font-medium">
+                        <MapPin className="h-4 w-4" />{contact.location}
+                      </span>
+                    )}
+                    {contact.linkedin_url && (
+                      <a href={contact.linkedin_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm px-4 py-2.5 brutal-border bg-card font-mono font-medium hover:bg-primary hover:text-primary-foreground transition-colors brutal-shadow-sm hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none">
+                        <Linkedin className="h-4 w-4" />LinkedIn
+                      </a>
+                    )}
+                    {contact.github_url && (
+                      <a href={contact.github_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm px-4 py-2.5 brutal-border bg-card font-mono font-medium hover:bg-primary hover:text-primary-foreground transition-colors brutal-shadow-sm hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none">
+                        <Github className="h-4 w-4" />GitHub
+                      </a>
+                    )}
+                    {contact.cv_url && (
+                      <a href={contact.cv_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm px-4 py-2.5 brutal-border bg-primary text-primary-foreground font-mono font-bold uppercase tracking-wider brutal-shadow-sm hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all">
+                        <FileText className="h-4 w-4" />Download CV
+                      </a>
+                    )}
+                  </div>
+                )}
 
-              <div className="gradient-line mb-8" />
-              {summary?.description && (
-                <SafeHtml html={summary.description} className="text-muted-foreground leading-relaxed max-w-2xl rich-content" />
-              )}
+                {summary?.description && (
+                  <SafeHtml html={summary.description} className="text-base md:text-lg leading-relaxed max-w-2xl rich-content" />
+                )}
+              </div>
             </div>
           </div>
         </section>
 
         {/* Experience */}
         {getBySection('experience').length > 0 && (
-        <Section id="experience" title="Experience" icon={<Terminal className="h-5 w-5 text-primary" />}>
+        <Section id="experience" title="Experience" bg="bg-background">
           <div className="space-y-8">
             {getBySection('experience').map((e) => (
-              <div key={e.id} className="relative pl-6 border-l-2 border-border hover:border-primary/50 transition-colors">
-                <div className="absolute -left-[7px] top-1 w-3 h-3 rounded-full bg-primary/30 border-2 border-primary" />
+              <div key={e.id} className="relative pl-6 border-l-4 border-foreground">
+                <div className="absolute -left-[10px] top-1 w-4 h-4 bg-primary border-2 border-foreground" />
                 <div className="flex flex-wrap items-baseline gap-2 mb-1">
-                  <h3 className="font-semibold">{e.title}</h3>
-                  {e.organization && <span className="text-primary text-sm">@ {e.organization}</span>}
+                  <h3 className="font-display font-bold text-lg">{e.title}</h3>
+                  {e.organization && <span className="font-mono text-sm bg-foreground text-background px-2 py-0.5">@ {e.organization}</span>}
                 </div>
-                <div className="flex flex-wrap gap-3 text-xs text-muted-foreground mb-2">
+                <div className="flex flex-wrap gap-3 text-xs font-mono uppercase tracking-wider text-muted-foreground mb-2">
                   {e.location && <span className="flex items-center gap-1"><MapPin className="h-3 w-3" />{e.location}</span>}
                   <span className="flex items-center gap-1"><Calendar className="h-3 w-3" />{e.startDate}{e.current ? ' — Present' : e.endDate ? ` — ${e.endDate}` : ''}</span>
                 </div>
-                {e.description && <SafeHtml html={e.description} className="text-sm text-muted-foreground rich-content" />}
+                {e.description && <SafeHtml html={e.description} className="text-sm rich-content" />}
               </div>
             ))}
           </div>
@@ -132,18 +138,18 @@ const Index = () => {
 
         {/* Skills */}
         {getBySection('skills').length > 0 && (
-        <Section id="skills" title="Skills" icon={<Terminal className="h-5 w-5 text-primary" />}>
+        <Section id="skills" title="Skills" bg="bg-muted">
           {(() => {
             const skills = getBySection('skills');
             const categories = [...new Set(skills.map((s) => s.category || 'Other'))];
             return (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {categories.map((cat) => (
-                  <div key={cat}>
-                    <h3 className="text-sm font-medium text-muted-foreground mb-3">{cat}</h3>
+                  <div key={cat} className="brutal-card p-5">
+                    <h3 className="font-display text-sm font-bold uppercase tracking-widest mb-3 text-primary">{cat}</h3>
                     <div className="flex flex-wrap gap-2">
                       {skills.filter((s) => (s.category || 'Other') === cat).map((s) => (
-                        <Badge key={s.id} variant="secondary" className="font-mono text-xs">
+                        <Badge key={s.id} variant="secondary" className="font-mono text-xs rounded-none border-2 border-foreground bg-background text-foreground px-2 py-1 hover:bg-accent">
                           {s.title}
                           {s.level && <span className="ml-1.5 text-primary">{'●'.repeat(s.level)}{'○'.repeat(5 - s.level)}</span>}
                         </Badge>
@@ -159,16 +165,16 @@ const Index = () => {
 
         {/* Projects */}
         {getBySection('projects').length > 0 && (
-        <Section id="projects" title="Projects" icon={<BookOpen className="h-5 w-5 text-primary" />}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Section id="projects" title="Projects" bg="bg-background">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {getBySection('projects').map((p) => (
-              <div key={p.id} className="rounded-lg border border-border bg-card overflow-hidden hover:border-primary/30 transition-colors flex flex-col">
+              <div key={p.id} className="brutal-card overflow-hidden flex flex-col transition-transform hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[10px_10px_0_0_hsl(var(--foreground))]">
                 {p.imageUrl && (
                   <a
                     href={p.url || p.imageUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block aspect-video overflow-hidden bg-muted"
+                    className="block aspect-video overflow-hidden bg-muted border-b-2 border-foreground"
                   >
                     <img
                       src={p.imageUrl}
@@ -179,15 +185,15 @@ const Index = () => {
                   </a>
                 )}
                 <div className="p-5 flex-1 flex flex-col">
-                  <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-semibold">{p.title}</h3>
-                    {p.url && <a href={p.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:opacity-80"><ExternalLink className="h-4 w-4" /></a>}
+                  <div className="flex items-start justify-between mb-2 gap-2">
+                    <h3 className="font-display font-bold text-lg">{p.title}</h3>
+                    {p.url && <a href={p.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:opacity-80 shrink-0"><ExternalLink className="h-5 w-5" /></a>}
                   </div>
-                  {p.description && <SafeHtml html={p.description} className="text-sm text-muted-foreground mb-3 rich-content" />}
+                  {p.description && <SafeHtml html={p.description} className="text-sm mb-3 rich-content" />}
                   {p.technologies && (
-                    <div className="flex flex-wrap gap-1.5 mt-auto">
+                    <div className="flex flex-wrap gap-1.5 mt-auto pt-3">
                       {p.technologies.map((t) => (
-                        <span key={t} className="text-xs font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">{t}</span>
+                        <span key={t} className="text-xs font-mono px-2 py-0.5 border border-foreground bg-accent text-accent-foreground">{t}</span>
                       ))}
                     </div>
                   )}
@@ -200,18 +206,18 @@ const Index = () => {
 
         {/* Education */}
         {getBySection('education').length > 0 && (
-        <Section id="education" title="Education" icon={<BookOpen className="h-5 w-5 text-primary" />}>
+        <Section id="education" title="Education" bg="bg-muted">
           <div className="space-y-6">
             {getBySection('education').map((e) => (
-              <div key={e.id} className="pl-6 border-l-2 border-border relative">
-                <div className="absolute -left-[7px] top-1 w-3 h-3 rounded-full bg-primary/30 border-2 border-primary" />
-                <h3 className="font-semibold">{e.title}</h3>
-                {e.organization && <p className="text-primary text-sm">{e.organization}</p>}
-                <div className="flex gap-3 text-xs text-muted-foreground mt-1 mb-2">
+              <div key={e.id} className="pl-6 border-l-4 border-foreground relative">
+                <div className="absolute -left-[10px] top-1 w-4 h-4 bg-primary border-2 border-foreground" />
+                <h3 className="font-display font-bold text-lg">{e.title}</h3>
+                {e.organization && <p className="font-mono text-sm">{e.organization}</p>}
+                <div className="flex gap-3 text-xs font-mono uppercase tracking-wider text-muted-foreground mt-1 mb-2">
                   {e.location && <span className="flex items-center gap-1"><MapPin className="h-3 w-3" />{e.location}</span>}
                   {e.startDate && <span className="flex items-center gap-1"><Calendar className="h-3 w-3" />{e.startDate}{e.endDate ? ` — ${e.endDate}` : ''}</span>}
                 </div>
-                {e.description && <SafeHtml html={e.description} className="text-sm text-muted-foreground rich-content" />}
+                {e.description && <SafeHtml html={e.description} className="text-sm rich-content" />}
               </div>
             ))}
           </div>
@@ -220,19 +226,19 @@ const Index = () => {
 
         {/* Certificates */}
         {getBySection('certificates').length > 0 && (
-        <Section id="certificates" title="Certificates" icon={<Award className="h-5 w-5 text-primary" />}>
-          <div className="space-y-4">
+        <Section id="certificates" title="Certificates" bg="bg-background">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {getBySection('certificates').map((c) => (
-              <div key={c.id} className="rounded-lg border border-border bg-card p-5">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h3 className="font-semibold">{c.title}</h3>
-                    {c.organization && <p className="text-sm text-primary">{c.organization}</p>}
-                    {c.startDate && <p className="text-xs text-muted-foreground mt-1">{c.startDate}</p>}
+              <div key={c.id} className="brutal-card p-5">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <h3 className="font-display font-bold">{c.title}</h3>
+                    {c.organization && <p className="text-sm font-mono">{c.organization}</p>}
+                    {c.startDate && <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground mt-1">{c.startDate}</p>}
                   </div>
-                  {c.credentialUrl && <a href={c.credentialUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:opacity-80"><ExternalLink className="h-4 w-4" /></a>}
+                  {c.credentialUrl && <a href={c.credentialUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:opacity-80 shrink-0"><ExternalLink className="h-5 w-5" /></a>}
                 </div>
-                {c.description && <SafeHtml html={c.description} className="text-sm text-muted-foreground mt-2 rich-content" />}
+                {c.description && <SafeHtml html={c.description} className="text-sm mt-2 rich-content" />}
               </div>
             ))}
           </div>
@@ -241,14 +247,14 @@ const Index = () => {
 
         {/* Trainings */}
         {getBySection('trainings').length > 0 && (
-        <Section id="trainings" title="Trainings" icon={<BookOpen className="h-5 w-5 text-primary" />}>
-          <div className="space-y-4">
+        <Section id="trainings" title="Trainings" bg="bg-muted">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {getBySection('trainings').map((t) => (
-              <div key={t.id} className="rounded-lg border border-border bg-card p-5">
-                <h3 className="font-semibold">{t.title}</h3>
-                {t.organization && <p className="text-sm text-primary">{t.organization}</p>}
-                {t.startDate && <p className="text-xs text-muted-foreground mt-1">{t.startDate}</p>}
-                {t.description && <SafeHtml html={t.description} className="text-sm text-muted-foreground mt-2 rich-content" />}
+              <div key={t.id} className="brutal-card p-5">
+                <h3 className="font-display font-bold">{t.title}</h3>
+                {t.organization && <p className="text-sm font-mono">{t.organization}</p>}
+                {t.startDate && <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground mt-1">{t.startDate}</p>}
+                {t.description && <SafeHtml html={t.description} className="text-sm mt-2 rich-content" />}
               </div>
             ))}
           </div>
@@ -257,17 +263,17 @@ const Index = () => {
 
         {/* Volunteering */}
         {getBySection('volunteering').length > 0 && (
-        <Section id="volunteering" title="Volunteering" icon={<Heart className="h-5 w-5 text-primary" />}>
+        <Section id="volunteering" title="Volunteering" bg="bg-background">
           <div className="space-y-6">
             {getBySection('volunteering').map((v) => (
-              <div key={v.id} className="pl-6 border-l-2 border-border relative">
-                <div className="absolute -left-[7px] top-1 w-3 h-3 rounded-full bg-primary/30 border-2 border-primary" />
-                <h3 className="font-semibold">{v.title}</h3>
-                {v.organization && <p className="text-primary text-sm">{v.organization}</p>}
-                <div className="flex gap-3 text-xs text-muted-foreground mt-1 mb-2">
+              <div key={v.id} className="pl-6 border-l-4 border-foreground relative">
+                <div className="absolute -left-[10px] top-1 w-4 h-4 bg-primary border-2 border-foreground" />
+                <h3 className="font-display font-bold text-lg">{v.title}</h3>
+                {v.organization && <p className="font-mono text-sm">{v.organization}</p>}
+                <div className="flex gap-3 text-xs font-mono uppercase tracking-wider text-muted-foreground mt-1 mb-2">
                   {v.startDate && <span><Calendar className="h-3 w-3 inline mr-1" />{v.startDate}{v.current ? ' — Present' : v.endDate ? ` — ${v.endDate}` : ''}</span>}
                 </div>
-                {v.description && <SafeHtml html={v.description} className="text-sm text-muted-foreground rich-content" />}
+                {v.description && <SafeHtml html={v.description} className="text-sm rich-content" />}
               </div>
             ))}
           </div>
@@ -276,22 +282,22 @@ const Index = () => {
 
         {/* Testimonials */}
         {getBySection('testimonials').length > 0 && (
-          <Section id="testimonials" title="Testimonials" icon={<MessageSquareQuote className="h-5 w-5 text-primary" />}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <Section id="testimonials" title="Testimonials" bg="bg-muted">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {getBySection('testimonials').map((t) => (
-                <div key={t.id} className="rounded-lg border border-border bg-card p-6 flex flex-col gap-4">
-                  <div className="text-primary/30 text-4xl font-serif leading-none">"</div>
-                  {t.description && <SafeHtml html={t.description} className="text-sm text-muted-foreground rich-content flex-1 italic" />}
-                  <div className="flex items-center gap-3 pt-2 border-t border-border">
-                    <Avatar className="h-10 w-10 shrink-0">
-                      <AvatarImage src={profilePlaceholder} alt={t.title || 'Anonymous'} />
-                      <AvatarFallback className="bg-muted text-muted-foreground">
+                <div key={t.id} className="brutal-card p-6 flex flex-col gap-4 bg-background">
+                  <div className="text-primary text-6xl font-display font-extrabold leading-none">"</div>
+                  {t.description && <SafeHtml html={t.description} className="text-sm rich-content flex-1" />}
+                  <div className="flex items-center gap-3 pt-3 border-t-2 border-foreground">
+                    <Avatar className="h-10 w-10 shrink-0 rounded-none border-2 border-foreground">
+                      <AvatarImage src={profilePlaceholder} alt={t.title || 'Anonymous'} className="rounded-none" />
+                      <AvatarFallback className="bg-accent text-accent-foreground rounded-none">
                         <User className="h-4 w-4" />
                       </AvatarFallback>
                     </Avatar>
                     <div className="min-w-0">
-                      <p className="text-sm font-medium truncate">{t.title || 'Anonymous'}</p>
-                      {t.organization && <p className="text-xs text-muted-foreground truncate">{t.organization}</p>}
+                      <p className="text-sm font-bold truncate">{t.title || 'Anonymous'}</p>
+                      {t.organization && <p className="text-xs font-mono text-muted-foreground truncate">{t.organization}</p>}
                     </div>
                   </div>
                 </div>
@@ -302,22 +308,21 @@ const Index = () => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-border py-8">
-        <div className="max-w-4xl mx-auto px-6 text-center text-xs text-muted-foreground">
-          <p className="font-mono">© {new Date().getFullYear()} Ali Algohary. Built with passion.</p>
+      <footer className="border-t-2 border-foreground py-8 bg-foreground text-background">
+        <div className="max-w-6xl mx-auto px-6 text-center text-xs font-mono uppercase tracking-widest">
+          <p>© {new Date().getFullYear()} ALI ALGOHARY // BUILT_WITH_PASSION</p>
         </div>
       </footer>
     </div>
   );
 };
 
-const Section = ({ id, title, icon, children }: { id: string; title: string; icon: React.ReactNode; children: React.ReactNode }) => (
-  <section id={id} className="py-12">
-    <div className="flex items-center gap-3 mb-8">
-      {icon}
-      <h2 className="text-2xl font-bold tracking-tight">{title}</h2>
+const Section = ({ id, title, children, bg = 'bg-background' }: { id: string; title: string; children: React.ReactNode; bg?: string }) => (
+  <section id={id} className={`w-full border-b-2 border-foreground ${bg}`}>
+    <div className="max-w-6xl mx-auto px-6 py-16 md:py-20">
+      <h2 className="section-heading">{title}</h2>
+      {children}
     </div>
-    {children}
   </section>
 );
 

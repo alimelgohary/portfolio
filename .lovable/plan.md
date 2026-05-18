@@ -1,56 +1,48 @@
+## Goal
 
+Replace the current dark emerald minimalist look with a bold **Brutalist Pop** tech aesthetic — light background, sharp black borders, saturated orange-red (#ff5722) primary and yellow (#ffeb3b) accent, large stacked full-width sections.
 
-## Visitor Stats for Portfolio Admin
+## Visual direction
 
-### What we're building
-A lightweight analytics system that tracks page views on the public portfolio and displays summary stats in the admin dashboard. For a portfolio site, the useful metrics are:
+- **Palette:** white `#ffffff` background, near-black `#0a0a0a` foreground, primary `#ff5722` (orange-red), accent `#ffeb3b` (yellow)
+- **Typography:** Sora (headings, heavy weights) + Manrope (body) via Google Fonts
+- **Style cues:** thick 2px black borders, zero/small border-radius, hard offset shadows (e.g. `4px 4px 0 #0a0a0a`), oversized headings, uppercase section labels, no gradients
+- **Layout:** full-width stacked sections separated by bold black dividers; each section spans the viewport with generous vertical padding
 
-- **Total page views** (all time)
-- **Unique visitors** (by anonymous fingerprint)
-- **Views over time** (daily chart for last 30 days)
-- **Top referrers** (where visitors come from)
-- **Page/section visited** (which URL path was viewed)
+## Changes
 
-### Technical approach
+### 1. `src/index.css`
+- Swap all `:root` HSL tokens to the new palette (light theme, brutalist).
+- Set `--radius` to `0` (sharp corners).
+- Update `.gradient-line` → a solid 2px black divider utility.
+- Update `.section-heading` to use uppercase, heavier Sora weight, square primary block accent.
+- Add utilities: `.brutal-border` (2px solid foreground), `.brutal-shadow` (hard offset shadow), `.brutal-card`.
+- Import Sora + Manrope from Google Fonts.
 
-#### 1. Database: `page_views` table
-Create a new table to log each visit:
-- `id` (uuid, PK)
-- `page_path` (text) — e.g. `/`, `/admin`
-- `referrer` (text, nullable)
-- `visitor_id` (text) — anonymous hash from user-agent + IP via edge function
-- `country` (text, nullable) — optional, from request headers
-- `created_at` (timestamptz)
+### 2. `tailwind.config.ts`
+- `fontFamily.sans` → Manrope; add `fontFamily.display` → Sora.
+- Extend `boxShadow.brutal` → `4px 4px 0 0 hsl(var(--foreground))`.
 
-RLS: Public insert (anonymous visitors must be able to write), admin-only select.
+### 3. `index.html`
+- Add `<link>` preconnect + Google Fonts stylesheet for Sora (600/700/800) and Manrope (400/500/700).
 
-#### 2. Edge function: `track-visit`
-An edge function that:
-- Receives `page_path` and `referrer` from the client
-- Generates a `visitor_id` hash from IP + user-agent (no cookies, privacy-friendly)
-- Inserts into `page_views`
-- Returns 200
+### 4. `src/pages/Index.tsx` (presentation only)
+- Apply `font-display` + uppercase tracking to section headings.
+- Wrap each portfolio section as a full-width band (`w-full border-b-2 border-foreground py-20`) with an inner `container`.
+- Use brutal-shadow + 2px borders on project cards instead of soft `bg-card` look.
+- Hero: enlarge name to display-scale, accent the role with the yellow highlight behind text.
+- Keep all existing logic, data flow, conditional rendering, and components unchanged.
 
-This avoids exposing the table directly to anonymous inserts and allows server-side fingerprinting.
+### 5. `src/components/Navbar.tsx` (if present) and small shared UI
+- Update to use new border/shadow utilities; no behavior change.
 
-#### 3. Client-side tracking
-In `Index.tsx`, call the edge function on page load (once per session via `sessionStorage` flag to avoid duplicate counts on re-renders).
+## Out of scope
 
-#### 4. Admin Stats component
-A new `VisitorStats` component rendered at the top of `AdminDashboard.tsx` showing:
-- **Summary cards**: Total views, unique visitors, views today, top referrer
-- **Line chart** (using recharts, already installed): Daily views for last 30 days
+- No changes to data model, contexts, admin dashboard logic, auth, or Supabase.
+- No new dependencies (Google Fonts via `<link>` only).
+- Admin dashboard inherits the new tokens automatically; no per-page rework.
 
-Data fetched directly from `page_views` table using the authenticated admin session.
+## Verification
 
-### Files to create/modify
-
-| File | Action |
-|------|--------|
-| `supabase/migrations/...` | Create `page_views` table with RLS |
-| `supabase/functions/track-visit/index.ts` | Edge function for logging visits |
-| `supabase/config.toml` | Add `verify_jwt = false` for track-visit |
-| `src/pages/Index.tsx` | Add tracking call on mount |
-| `src/components/admin/VisitorStats.tsx` | New stats dashboard component |
-| `src/components/admin/AdminDashboard.tsx` | Add VisitorStats above content tabs |
-
+- Visit `/` in preview, confirm light brutalist look, fonts loaded, sections stacked full-width with black dividers.
+- Visit `/admin`, confirm forms still readable with new tokens.
