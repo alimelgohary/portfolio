@@ -166,7 +166,7 @@ const Index = () => {
         {/* Projects */}
         {getBySection('projects').length > 0 && (
         <Section id="projects" title="Projects" bg="bg-background">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {getBySection('projects').map((p) => (
               <div key={p.id} className="brutal-card overflow-hidden flex flex-col transition-transform hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[10px_10px_0_0_hsl(var(--foreground))]">
                 {p.imageUrl && (
