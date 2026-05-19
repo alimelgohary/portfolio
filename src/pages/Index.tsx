@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { usePortfolio } from '@/contexts/PortfolioContext';
 import { useContactInfo } from '@/hooks/useContactInfo';
 import { SectionType, SECTION_LABELS } from '@/types/portfolio';
@@ -17,20 +17,44 @@ const SafeHtml = ({ html, className }: { html: string; className?: string }) => 
   <div dir="auto" className={className} dangerouslySetInnerHTML={{ __html: sanitizeHtml(html) }} />
 );
 
+const ExpandableDescription = ({ html }: { html: string }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [expanded, setExpanded] = useState(false);
+  const [overflows, setOverflows] = useState(false);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const original = el.className;
+    el.classList.add('line-clamp-4');
+    setOverflows(el.scrollHeight > el.clientHeight);
+    el.className = original;
+  }, [html]);
+
+  return (
+    <>
+      <div
+        ref={ref}
+        dir="auto"
+        className={cn('text-sm mb-1 rich-content', !expanded && 'line-clamp-4')}
+        dangerouslySetInnerHTML={{ __html: sanitizeHtml(html) }}
+      />
+      {overflows && (
+        <button
+          onClick={() => setExpanded((v) => !v)}
+          className="text-xs font-bold uppercase tracking-wider text-primary hover:underline mt-1 self-start"
+        >
+          {expanded ? 'Show less' : 'Read more'}
+        </button>
+      )}
+    </>
+  );
+};
+
 const Index = () => {
   const { getBySection, loading } = usePortfolio();
   const { contact } = useContactInfo();
   const summary = getBySection('summary')[0];
-  const [expandedProjects, setExpandedProjects] = useState<Set<string>>(new Set());
-
-  const toggleProjectExpand = (id: string) => {
-    setExpandedProjects((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  };
 
   useEffect(() => { trackPageView(); }, []);
 
@@ -200,23 +224,7 @@ const Index = () => {
                     <h3 className="font-display font-bold text-lg">{p.title}</h3>
                     {p.url && <a href={p.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:opacity-80 shrink-0"><ExternalLink className="h-5 w-5" /></a>}
                   </div>
-                  {p.description && (
-                    <>
-                      <SafeHtml
-                        html={p.description}
-                        className={cn(
-                          'text-sm mb-1 rich-content',
-                          !expandedProjects.has(p.id) && 'line-clamp-4'
-                        )}
-                      />
-                      <button
-                        onClick={() => toggleProjectExpand(p.id)}
-                        className="text-xs font-bold uppercase tracking-wider text-primary hover:underline mt-1 self-start"
-                      >
-                        {expandedProjects.has(p.id) ? 'Show less' : 'Read more'}
-                      </button>
-                    </>
-                  )}
+                  {p.description && <ExpandableDescription html={p.description} />}
                   {p.technologies && (
                     <div className="flex flex-wrap gap-1.5 mt-auto pt-3">
                       {p.technologies.map((t) => (
