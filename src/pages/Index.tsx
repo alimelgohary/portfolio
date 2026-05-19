@@ -200,7 +200,23 @@ const Index = () => {
                     <h3 className="font-display font-bold text-lg">{p.title}</h3>
                     {p.url && <a href={p.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:opacity-80 shrink-0"><ExternalLink className="h-5 w-5" /></a>}
                   </div>
-                  {p.description && <SafeHtml html={p.description} className="text-sm mb-3 rich-content" />}
+                  {p.description && (
+                    <>
+                      <SafeHtml
+                        html={p.description}
+                        className={cn(
+                          'text-sm mb-1 rich-content',
+                          !expandedProjects.has(p.id) && 'line-clamp-4'
+                        )}
+                      />
+                      <button
+                        onClick={() => toggleProjectExpand(p.id)}
+                        className="text-xs font-bold uppercase tracking-wider text-primary hover:underline mt-1 self-start"
+                      >
+                        {expandedProjects.has(p.id) ? 'Show less' : 'Read more'}
+                      </button>
+                    </>
+                  )}
                   {p.technologies && (
                     <div className="flex flex-wrap gap-1.5 mt-auto pt-3">
                       {p.technologies.map((t) => (
