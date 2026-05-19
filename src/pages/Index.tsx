@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { usePortfolio } from '@/contexts/PortfolioContext';
 import { useContactInfo } from '@/hooks/useContactInfo';
 import { SectionType, SECTION_LABELS } from '@/types/portfolio';
