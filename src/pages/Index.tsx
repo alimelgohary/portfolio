@@ -17,6 +17,40 @@ const SafeHtml = ({ html, className }: { html: string; className?: string }) => 
   <div dir="auto" className={className} dangerouslySetInnerHTML={{ __html: sanitizeHtml(html) }} />
 );
 
+const ExpandableDescription = ({ html }: { html: string }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [expanded, setExpanded] = useState(false);
+  const [overflows, setOverflows] = useState(false);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const original = el.className;
+    el.classList.add('line-clamp-4');
+    setOverflows(el.scrollHeight > el.clientHeight);
+    el.className = original;
+  }, [html]);
+
+  return (
+    <>
+      <div
+        ref={ref}
+        dir="auto"
+        className={cn('text-sm mb-1 rich-content', !expanded && 'line-clamp-4')}
+        dangerouslySetInnerHTML={{ __html: sanitizeHtml(html) }}
+      />
+      {overflows && (
+        <button
+          onClick={() => setExpanded((v) => !v)}
+          className="text-xs font-bold uppercase tracking-wider text-primary hover:underline mt-1 self-start"
+        >
+          {expanded ? 'Show less' : 'Read more'}
+        </button>
+      )}
+    </>
+  );
+};
+
 const Index = () => {
   const { getBySection, loading } = usePortfolio();
   const { contact } = useContactInfo();
