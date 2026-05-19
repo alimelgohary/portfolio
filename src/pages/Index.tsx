@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { usePortfolio } from '@/contexts/PortfolioContext';
 import { useContactInfo } from '@/hooks/useContactInfo';
 import { SectionType, SECTION_LABELS } from '@/types/portfolio';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { sanitizeHtml } from '@/lib/sanitize';
+import { cn } from '@/lib/utils';
 import { ExternalLink, MapPin, Calendar, Award, BookOpen, Heart, Terminal, Mail, Phone, Linkedin, Github, FileText, MessageSquareQuote, User } from 'lucide-react';
 import { trackPageView } from '@/lib/analytics';
 import profilePlaceholder from '@/assets/profile-placeholder.png';
@@ -20,6 +21,16 @@ const Index = () => {
   const { getBySection, loading } = usePortfolio();
   const { contact } = useContactInfo();
   const summary = getBySection('summary')[0];
+  const [expandedProjects, setExpandedProjects] = useState<Set<string>>(new Set());
+
+  const toggleProjectExpand = (id: string) => {
+    setExpandedProjects((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
 
   useEffect(() => { trackPageView(); }, []);
 
@@ -189,7 +200,23 @@ const Index = () => {
                     <h3 className="font-display font-bold text-lg">{p.title}</h3>
                     {p.url && <a href={p.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:opacity-80 shrink-0"><ExternalLink className="h-5 w-5" /></a>}
                   </div>
-                  {p.description && <SafeHtml html={p.description} className="text-sm mb-3 rich-content" />}
+                  {p.description && (
+                    <>
+                      <SafeHtml
+                        html={p.description}
+                        className={cn(
+                          'text-sm mb-1 rich-content',
+                          !expandedProjects.has(p.id) && 'line-clamp-4'
+                        )}
+                      />
+                      <button
+                        onClick={() => toggleProjectExpand(p.id)}
+                        className="text-xs font-bold uppercase tracking-wider text-primary hover:underline mt-1 self-start"
+                      >
+                        {expandedProjects.has(p.id) ? 'Show less' : 'Read more'}
+                      </button>
+                    </>
+                  )}
                   {p.technologies && (
                     <div className="flex flex-wrap gap-1.5 mt-auto pt-3">
                       {p.technologies.map((t) => (
