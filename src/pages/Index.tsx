@@ -55,16 +55,6 @@ const Index = () => {
   const { getBySection, loading } = usePortfolio();
   const { contact } = useContactInfo();
   const summary = getBySection('summary')[0];
-  const [expandedProjects, setExpandedProjects] = useState<Set<string>>(new Set());
-
-  const toggleProjectExpand = (id: string) => {
-    setExpandedProjects((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  };
 
   useEffect(() => { trackPageView(); }, []);
 
